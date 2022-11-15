@@ -17,7 +17,7 @@ require_relative "tzinfo_jruby_patch"
 #           name     => "arbitrary_name"
 #           urls     => "https://domain.org/heatlh"
 #           timeout  => "10"
-#           headers  => { "x-api-access": "some-token", "x-custom-header": "value" }
+#           headers  => { "x-api-access" => "some-token", "x-custom-header" => "value" }
 #           schedule => "0 * * * *"
 #       }
 #
@@ -97,9 +97,9 @@ class LogStash::Inputs::Rest < LogStash::Inputs::Base
   def send_request(queue)
     RestClient::Request.execute(method: :get, url: url, timeout: timeout, accept: 'json', headers: headers) { |response, request, result, &block|
       @codec.decode(response) do |event|
-        event["meta_name"] = name
+        event["meta_name"] = @name
         event["meta_host"] = @host
-        event["meta_url"] = url
+        event["meta_url"] = @url
         event["meta_success"] = true
         event["meta_responseCode"] = response.code
 
