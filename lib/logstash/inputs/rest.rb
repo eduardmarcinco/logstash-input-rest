@@ -97,9 +97,9 @@ class LogStash::Inputs::Rest < LogStash::Inputs::Base
   def send_request(queue)
     RestClient::Request.execute(method: :get, url: url, timeout: timeout, accept: 'json', headers: headers) { |response|
       @codec.decode(response) do |event|
-        event["meta_name"] = @name
+        event["meta_name"] = name
         event["meta_host"] = @host
-        event["meta_url"] = @url
+        event["meta_url"] = url
         event["meta_success"] = true
         event["meta_responseCode"] = response.code
 
