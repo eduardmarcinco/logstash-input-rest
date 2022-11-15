@@ -94,6 +94,10 @@ class LogStash::Inputs::Rest < LogStash::Inputs::Base
 
   private
 
+  ####
+  # ###
+  # #####
+  # ######
   def send_request(queue)
     RestClient::Request.execute(method: :get, url: url, timeout: timeout, accept: 'json', headers: headers) { |response|
       @codec.decode(response) do |event|
